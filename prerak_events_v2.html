@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prerak Events | Saurav Davne</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #FF5C1A;
+  --secondary: #FFD600;
+  --teal: #00C9A7;
+  --blue: #2563EB;
+  --pink: #FF3CAC;
+  --bg: #F7F4EE;
+  --dark: #111111;
+  --card: #FFFFFF;
+  --text: #1A1A1A;
+  --muted: #777;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 999;
+  background: var(--bg);
+  border-bottom: 2px solid var(--dark);
+  padding: 1rem 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem; font-weight: 800;
+  color: var(--dark);
+  display: flex; align-items: center; gap: .5rem;
+}
+.nav-logo .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--primary); display: inline-block;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: .9rem; font-weight: 500;
+  color: var(--text); text-decoration: none;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute;
+  bottom: -3px; left: 0; width: 0; height: 2px;
+  background: var(--primary); transition: width .3s;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-call {
+  background: var(--primary); color: #fff;
+  padding: .6rem 1.5rem; font-size: .85rem;
+  font-weight: 600; font-family: 'Outfit', sans-serif;
+  text-decoration: none; border: 2px solid var(--dark);
+  box-shadow: 3px 3px 0 var(--dark);
+  transition: transform .15s, box-shadow .15s;
+}
+.nav-call:hover { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--dark); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  padding: 9rem 5vw 5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .25;
+  pointer-events: none;
+}
+.blob1 { width: 500px; height: 500px; background: var(--primary); top: -100px; right: -100px; }
+.blob2 { width: 400px; height: 400px; background: var(--secondary); bottom: -80px; left: 20%; }
+.blob3 { width: 300px; height: 300px; background: var(--teal); top: 30%; left: -80px; }
+
+.hero-left { position: relative; z-index: 2; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--secondary); color: var(--dark);
+  font-size: .75rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: .4rem 1rem; border: 2px solid var(--dark);
+  box-shadow: 2px 2px 0 var(--dark);
+  margin-bottom: 1.5rem;
+  animation: popIn .6s ease both;
+}
+.hero-h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 800; line-height: 1.06;
+  color: var(--dark);
+  animation: slideRight .7s .1s ease both;
+}
+.hero-h1 .stroke {
+  -webkit-text-stroke: 2px var(--dark);
+  color: transparent;
+}
+.hero-h1 .highlight {
+  position: relative; display: inline-block;
+  color: var(--primary);
+}
+.hero-h1 .highlight::after {
+  content: '';
+  position: absolute; bottom: 4px; left: 0; width: 100%; height: 8px;
+  background: var(--secondary); z-index: -1;
+}
+.hero-desc {
+  margin-top: 1.5rem;
+  font-size: 1.05rem; color: var(--muted); line-height: 1.75;
+  max-width: 480px;
+  animation: slideRight .7s .25s ease both;
+}
+.hero-btns {
+  margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: slideRight .7s .4s ease both;
+}
+.btn-bold {
+  background: var(--dark); color: #fff;
+  padding: .85rem 2.2rem; font-size: .95rem; font-weight: 600;
+  text-decoration: none; border: 2px solid var(--dark);
+  box-shadow: 4px 4px 0 var(--primary);
+  transition: transform .15s, box-shadow .15s;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.btn-bold:hover { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--primary); }
+.btn-ghost {
+  background: transparent; color: var(--dark);
+  padding: .85rem 2.2rem; font-size: .95rem; font-weight: 600;
+  text-decoration: none; border: 2px solid var(--dark);
+  box-shadow: 4px 4px 0 var(--teal);
+  transition: transform .15s, box-shadow .15s;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.btn-ghost:hover { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--teal); }
+
+/* Hero visual */
+.hero-right {
+  position: relative; z-index: 2;
+  animation: popIn .8s .3s ease both;
+}
+.hero-card-main {
+  background: var(--dark); color: #fff;
+  border: 2px solid var(--dark);
+  padding: 3rem 2.5rem;
+  position: relative;
+  box-shadow: 8px 8px 0 var(--primary);
+}
+.hero-card-main .big-emoji { font-size: 5rem; display: block; margin-bottom: 1.2rem; }
+.hero-card-main h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.5rem; font-weight: 800; margin-bottom: .5rem;
+}
+.hero-card-main p { font-size: .9rem; color: rgba(255,255,255,.65); line-height: 1.6; }
+.hero-badge-row {
+  display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;
+}
+.hbadge {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  padding: .35rem .85rem; font-size: .75rem; font-weight: 600;
+  color: rgba(255,255,255,.85); border-radius: 100px;
+}
+.hbadge.y { background: var(--secondary); color: var(--dark); border-color: transparent; }
+.hbadge.t { background: var(--teal); color: var(--dark); border-color: transparent; }
+
+.float-stat {
+  position: absolute;
+  background: var(--card);
+  border: 2px solid var(--dark);
+  padding: .8rem 1.3rem;
+  box-shadow: 3px 3px 0 var(--dark);
+}
+.float-stat .n {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.6rem; font-weight: 800; color: var(--primary);
+  display: block;
+}
+.float-stat .l { font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.fs1 { top: -1.5rem; right: -1.5rem; }
+.fs2 { bottom: -1.5rem; left: -1.5rem; }
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--primary); color: #fff;
+  border-top: 2px solid var(--dark); border-bottom: 2px solid var(--dark);
+  overflow: hidden; padding: .8rem 0;
+}
+.ticker-track {
+  display: flex; gap: 3rem; width: max-content;
+  animation: ticker 20s linear infinite;
+  font-family: 'Syne', sans-serif;
+  font-size: .85rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.ticker-track .sep { opacity: .5; }
+
+/* ── SERVICES ── */
+#services {
+  padding: 7rem 5vw;
+  background: var(--bg);
+}
+.sec-header { max-width: 1200px; margin: 0 auto 4rem; }
+.sec-label {
+  display: inline-block;
+  background: var(--teal); color: var(--dark);
+  font-size: .7rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  padding: .3rem .9rem; border: 2px solid var(--dark);
+  box-shadow: 2px 2px 0 var(--dark);
+  margin-bottom: 1rem;
+}
+.sec-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800;
+  line-height: 1.1; color: var(--dark);
+}
+.sec-title span { color: var(--primary); }
+
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+}
+.svc-card {
+  background: var(--card);
+  border: 2px solid var(--dark);
+  padding: 2.5rem 2rem;
+  box-shadow: 5px 5px 0 var(--dark);
+  transition: transform .2s, box-shadow .2s;
+  position: relative; overflow: hidden;
+}
+.svc-card:hover { transform: translate(-3px,-3px); box-shadow: 8px 8px 0 var(--dark); }
+.svc-card:nth-child(1) { --accent: var(--primary); }
+.svc-card:nth-child(2) { --accent: var(--teal); }
+.svc-card:nth-child(3) { --accent: var(--secondary); }
+.svc-card:nth-child(4) { --accent: var(--blue); }
+.svc-card:nth-child(5) { --accent: var(--pink); }
+.svc-card:nth-child(6) { --accent: var(--primary); }
+.svc-card-top {
+  width: 52px; height: 52px;
+  background: var(--accent);
+  border: 2px solid var(--dark);
+  display: grid; place-items: center;
+  font-size: 1.5rem; margin-bottom: 1.5rem;
+}
+.svc-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem; font-weight: 700; margin-bottom: .6rem;
+}
+.svc-card p { font-size: .85rem; color: var(--muted); line-height: 1.65; }
+.svc-card-num {
+  position: absolute; top: 1rem; right: 1.2rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 3rem; font-weight: 800;
+  color: rgba(0,0,0,.04);
+  line-height: 1;
+}
+
+/* ── ABOUT ── */
+#about {
+  background: var(--dark); color: #fff;
+  padding: 7rem 5vw;
+}
+.about-wrap {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+}
+.about-left .sec-label { background: var(--secondary); }
+.about-left .sec-title { color: #fff; }
+.about-left .sec-title span { color: var(--secondary); }
+.about-left p { color: rgba(255,255,255,.65); line-height: 1.8; margin-top: 1.2rem; font-size: .95rem; }
+.about-left p + p { margin-top: .9rem; }
+.open-badge {
+  margin-top: 2rem;
+  display: inline-flex; align-items: center; gap: .7rem;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.15);
+  padding: .7rem 1.3rem; font-size: .82rem; font-weight: 500; color: rgba(255,255,255,.8);
+}
+.open-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 8px var(--teal); animation: blink 1.5s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.about-right { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.a-stat {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 2rem 1.5rem;
+  transition: background .3s;
+}
+.a-stat:hover { background: rgba(255,255,255,.09); }
+.a-stat:first-child { grid-column: 1 / -1; background: var(--primary); border-color: transparent; }
+.a-stat .n {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.8rem; font-weight: 800; color: #fff;
+  display: block; line-height: 1;
+}
+.a-stat:not(:first-child) .n { color: var(--secondary); }
+.a-stat .l { font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.6); margin-top: .4rem; display: block; }
+.a-stat:first-child .l { color: rgba(255,255,255,.8); }
+
+/* ── WHY ── */
+#why { padding: 7rem 5vw; background: var(--bg); }
+.why-wrap { max-width: 1200px; margin: 0 auto; }
+.why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; margin-top: 4rem; }
+.why-card {
+  border: 2px solid var(--dark);
+  padding: 2rem 1.5rem;
+  background: var(--card);
+  box-shadow: 4px 4px 0 var(--dark);
+  transition: transform .2s, box-shadow .2s;
+}
+.why-card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--dark); }
+.why-card:nth-child(1) .why-icon { background: var(--primary); }
+.why-card:nth-child(2) .why-icon { background: var(--teal); }
+.why-card:nth-child(3) .why-icon { background: var(--secondary); }
+.why-card:nth-child(4) .why-icon { background: var(--blue); }
+.why-icon {
+  width: 40px; height: 40px;
+  border: 2px solid var(--dark);
+  display: grid; place-items: center;
+  font-size: 1.1rem; margin-bottom: 1rem;
+}
+.why-card h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+.why-card p { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+
+/* ── CONTACT ── */
+#contact { padding: 7rem 5vw; background: var(--bg); }
+.contact-wrap { max-width: 1200px; margin: 0 auto; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; margin-top: 4rem; align-items: start; }
+
+.cinfo-cards { display: flex; flex-direction: column; gap: 1rem; }
+.cinfo-card {
+  display: flex; gap: 1.2rem; align-items: center;
+  background: var(--card);
+  border: 2px solid var(--dark);
+  padding: 1.2rem 1.5rem;
+  box-shadow: 3px 3px 0 var(--dark);
+}
+.cinfo-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border: 2px solid var(--dark);
+  display: grid; place-items: center; font-size: 1.2rem;
+}
+.cinfo-card:nth-child(1) .cinfo-icon { background: var(--primary); }
+.cinfo-card:nth-child(2) .cinfo-icon { background: var(--teal); }
+.cinfo-card:nth-child(3) .cinfo-icon { background: var(--secondary); }
+.cinfo-card:nth-child(4) .cinfo-icon { background: var(--blue); color: #fff; }
+.cinfo-card:nth-child(5) .cinfo-icon { background: var(--pink); }
+.cinfo-lbl { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: .2rem; }
+.cinfo-val { font-size: .92rem; font-weight: 500; color: var(--dark); }
+.cinfo-val a { color: var(--primary); text-decoration: none; font-weight: 600; }
+.cinfo-val a:hover { text-decoration: underline; }
+
+.cform { background: var(--dark); border: 2px solid var(--dark); padding: 2.5rem; box-shadow: 6px 6px 0 var(--primary); }
+.cform h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 1.5rem; }
+.cform-fields { display: flex; flex-direction: column; gap: 1rem; }
+.cform input, .cform textarea, .cform select {
+  background: rgba(255,255,255,.07);
+  border: 1.5px solid rgba(255,255,255,.15);
+  color: #fff; font-family: 'Outfit', sans-serif;
+  font-size: .9rem; padding: .85rem 1.1rem;
+  outline: none; transition: border-color .3s;
+  resize: none; width: 100%;
+}
+.cform input::placeholder, .cform textarea::placeholder { color: rgba(255,255,255,.3); }
+.cform input:focus, .cform textarea:focus { border-color: var(--secondary); }
+.cform textarea { min-height: 110px; }
+.cform select option { background: #222; }
+.submit-btn {
+  width: 100%;
+  background: var(--primary); color: #fff;
+  border: 2px solid #fff;
+  padding: 1rem; font-size: .95rem; font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  cursor: pointer; letter-spacing: .05em;
+  box-shadow: 4px 4px 0 var(--secondary);
+  transition: transform .15s, box-shadow .15s;
+  margin-top: .5rem;
+}
+.submit-btn:hover { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--secondary); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark); color: #fff;
+  border-top: 2px solid rgba(255,255,255,.1);
+  padding: 2.5rem 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-brand {
+  font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800;
+  display: flex; align-items: center; gap: .5rem;
+}
+.footer-brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); }
+footer p { font-size: .78rem; color: rgba(255,255,255,.4); }
+
+/* ── WHATSAPP ── */
+.wa-float {
+  position: fixed; bottom: 1.8rem; right: 1.8rem; z-index: 500;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: #25D366; border: 2px solid var(--dark);
+  box-shadow: 3px 3px 0 var(--dark);
+  display: grid; place-items: center;
+  text-decoration: none;
+  transition: transform .2s;
+  animation: bounce 3s ease infinite;
+}
+.wa-float:hover { transform: scale(1.1); }
+.wa-float svg { width: 28px; height: 28px; fill: white; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+/* ── ANIMATIONS ── */
+@keyframes popIn { from{opacity:0;transform:scale(.9)} to{opacity:1;transform:scale(1)} }
+@keyframes slideRight { from{opacity:0;transform:translateX(-30px)} to{opacity:1;transform:translateX(0)} }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav { padding: 1rem 4vw; }
+  .nav-links { display: none; }
+  #hero { grid-template-columns: 1fr; padding: 7rem 4vw 4rem; }
+  .hero-right { display: none; }
+  section, #about, #services, #why, #contact { padding: 5rem 4vw; }
+  .svc-grid, .why-grid { grid-template-columns: 1fr 1fr; }
+  .about-wrap, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-right { grid-template-columns: 1fr 1fr; }
+  footer { flex-direction: column; text-align: center; }
+}
+@media(max-width:500px){
+  .svc-grid, .why-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span class="dot"></span> Prerak Events</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:9022628209" class="nav-call">📞 Call Now</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+  <div class="hero-blob blob3"></div>
+
+  <div class="hero-left">
+    <div class="hero-tag">⚡ Vangaon's #1 Event Planner</div>
+    <h1 class="hero-h1">
+      Your Events.<br>
+      <span class="highlight">Our Passion.</span><br>
+      <span class="stroke">Always.</span>
+    </h1>
+    <p class="hero-desc">Prerak Events — full-service event planning & management by Saurav Davne. Weddings, corporate, birthdays, concerts and everything in between.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-bold">✉ Free Quote</a>
+      <a href="tel:9022628209" class="btn-ghost">📞 90226 28209</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="float-stat fs1">
+      <span class="n">500+</span>
+      <span class="l">Events Done</span>
+    </div>
+    <div class="hero-card-main">
+      <span class="big-emoji">🎉</span>
+      <h2>Planning Your Next Big Event?</h2>
+      <p>From intimate gatherings to grand celebrations — we handle every detail so you can enjoy every moment.</p>
+      <div class="hero-badge-row">
+        <span class="hbadge y">Weddings</span>
+        <span class="hbadge t">Corporate</span>
+        <span class="hbadge">Concerts</span>
+        <span class="hbadge">Birthdays</span>
+      </div>
+    </div>
+    <div class="float-stat fs2">
+      <span class="n">24/7</span>
+      <span class="l">Available</span>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Weddings</span><span class="sep">★</span>
+    <span>Corporate Events</span><span class="sep">★</span>
+    <span>Birthday Parties</span><span class="sep">★</span>
+    <span>Product Launches</span><span class="sep">★</span>
+    <span>Concerts</span><span class="sep">★</span>
+    <span>Sangeet & Mehendi</span><span class="sep">★</span>
+    <span>Exhibitions</span><span class="sep">★</span>
+    <span>Award Ceremonies</span><span class="sep">★</span>
+    <span>Weddings</span><span class="sep">★</span>
+    <span>Corporate Events</span><span class="sep">★</span>
+    <span>Birthday Parties</span><span class="sep">★</span>
+    <span>Product Launches</span><span class="sep">★</span>
+    <span>Concerts</span><span class="sep">★</span>
+    <span>Sangeet & Mehendi</span><span class="sep">★</span>
+    <span>Exhibitions</span><span class="sep">★</span>
+    <span>Award Ceremonies</span><span class="sep">★</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="sec-header">
+    <div class="sec-label">What We Do</div>
+    <h2 class="sec-title">Our <span>Services</span></h2>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="svc-card-top">💍</div>
+      <div class="svc-card-num">01</div>
+      <h3>Wedding Planning</h3>
+      <p>Complete wedding management — décor, catering, entertainment and coordination. Your dream day, perfectly executed.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-card-top">🏢</div>
+      <div class="svc-card-num">02</div>
+      <h3>Corporate Events</h3>
+      <p>Conferences, product launches, team retreats, award nights — handled with professionalism and flair.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-card-top">🎂</div>
+      <div class="svc-card-num">03</div>
+      <h3>Birthday Parties</h3>
+      <p>Milestone birthdays or intimate celebrations — themed décor, entertainment and catering for every age.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-card-top">🎤</div>
+      <div class="svc-card-num">04</div>
+      <h3>Concerts & Shows</h3>
+      <p>Stage setup, sound systems, artist coordination and crowd management — seamless live events.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-card-top">🖼️</div>
+      <div class="svc-card-num">05</div>
+      <h3>Exhibitions & Expos</h3>
+      <p>Stall design, visitor management, branding and logistics for trade shows and product exhibitions.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-card-top">🌟</div>
+      <div class="svc-card-num">06</div>
+      <h3>Custom Events</h3>
+      <p>Religious ceremonies, cultural programs, college fests and any bespoke event you can imagine.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-wrap">
+    <div class="about-left">
+      <div class="sec-label">About Us</div>
+      <h2 class="sec-title">Meet <span>Saurav Davne</span> &amp; Prerak Events</h2>
+      <p>Prerak Events is Vangaon's most trusted event planning and management consultancy. With over a decade of experience, we've delivered 500+ events with perfection — from grand weddings to high-energy corporate gatherings.</p>
+      <p>We're not just planners — we're storytellers. Every event we create is unique, memorable and crafted around your vision. Our team works 24/7 because your special moments deserve nothing less.</p>
+      <div class="open-badge">
+        <span class="open-dot"></span>
+        Open 24 Hours — Always Here For You
+      </div>
+    </div>
+    <div class="about-right">
+      <div class="a-stat">
+        <span class="n">500+</span>
+        <span class="l">Successful Events Delivered</span>
+      </div>
+      <div class="a-stat">
+        <span class="n">10+</span>
+        <span class="l">Years of Experience</span>
+      </div>
+      <div class="a-stat">
+        <span class="n">100%</span>
+        <span class="l">Client Satisfaction</span>
+      </div>
+      <div class="a-stat">
+        <span class="n">24/7</span>
+        <span class="l">Always Available</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="why-wrap">
+    <div class="sec-header" style="margin-bottom:0">
+      <div class="sec-label">Why Choose Us</div>
+      <h2 class="sec-title">The <span>Prerak</span> Promise</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">⏰</div>
+        <h4>24/7 Availability</h4>
+        <p>We're always reachable — because great events don't follow a 9-to-5 schedule.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">✅</div>
+        <h4>End-to-End Management</h4>
+        <p>From first consultation to final farewell — we handle every detail so you don't have to.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎨</div>
+        <h4>Creative Excellence</h4>
+        <p>Original, vibrant and tailored designs. No cookie-cutter events — every project is unique.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <h4>Budget Friendly</h4>
+        <p>Premium quality within your budget. Unforgettable events should be accessible to everyone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="sec-header" style="margin-bottom:0">
+      <div class="sec-label">Get In Touch</div>
+      <h2 class="sec-title">Let's Build Something <span>Amazing</span></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="cinfo-cards">
+        <div class="cinfo-card">
+          <div class="cinfo-icon">📞</div>
+          <div>
+            <div class="cinfo-lbl">Phone / WhatsApp</div>
+            <div class="cinfo-val"><a href="tel:9022628209">90226 28209</a></div>
+          </div>
+        </div>
+        <div class="cinfo-card">
+          <div class="cinfo-icon">✉</div>
+          <div>
+            <div class="cinfo-lbl">Email</div>
+            <div class="cinfo-val"><a href="mailto:prerakevents@gmail.com">prerakevents@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="cinfo-card">
+          <div class="cinfo-icon">🌐</div>
+          <div>
+            <div class="cinfo-lbl">Website</div>
+            <div class="cinfo-val"><a href="https://www.prerakevents.com" target="_blank">www.prerakevents.com</a></div>
+          </div>
+        </div>
+        <div class="cinfo-card">
+          <div class="cinfo-icon">📍</div>
+          <div>
+            <div class="cinfo-lbl">Address</div>
+            <div class="cinfo-val">203, 2nd Floor, Indraprasthya Complex, Vangaon (West)</div>
+          </div>
+        </div>
+        <div class="cinfo-card">
+          <div class="cinfo-icon">👤</div>
+          <div>
+            <div class="cinfo-lbl">Contact Person</div>
+            <div class="cinfo-val">Saurav Davne</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cform">
+        <h3>Send an Enquiry 🚀</h3>
+        <div class="cform-fields">
+          <input type="text" placeholder="Your Full Name" required>
+          <input type="tel" placeholder="Your Phone Number" required>
+          <select>
+            <option value="" disabled selected style="color:#888">Select Event Type</option>
+            <option>Wedding</option>
+            <option>Corporate Event</option>
+            <option>Birthday Party</option>
+            <option>Concert / Show</option>
+            <option>Exhibition</option>
+            <option>Other</option>
+          </select>
+          <textarea placeholder="Tell us about your event..."></textarea>
+          <button class="submit-btn" onclick="submitForm(this)">Send Enquiry →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand"><span class="dot"></span> Prerak Events</div>
+  <p>© 2026 Prerak Events. All rights reserved.</p>
+  <p>📞 90226 28209 &nbsp;·&nbsp; Vangaon (West)</p>
+</footer>
+
+<!-- WHATSAPP -->
+<a class="wa-float" href="https://wa.me/919022628209" target="_blank">
+  <svg viewBox="0 0 32 32"><path d="M16 .4C7.4.4.4 7.4.4 16c0 2.8.7 5.5 2.1 7.9L.4 31.6l8-2.1c2.3 1.2 4.8 1.9 7.6 1.9 8.6 0 15.6-7 15.6-15.6C31.6 7.4 24.6.4 16 .4zm0 28.6c-2.5 0-4.9-.7-7-1.9l-.5-.3-4.8 1.3 1.3-4.7-.3-.5C3.3 21 2.6 18.5 2.6 16 2.6 8.6 8.6 2.6 16 2.6S29.4 8.6 29.4 16 23.4 29 16 29zm8.5-10.6c-.5-.2-2.8-1.4-3.2-1.5-.4-.2-.7-.2-1 .2-.3.4-1.1 1.5-1.4 1.8-.3.3-.5.3-1 .1-.5-.2-2-.7-3.8-2.3-1.4-1.3-2.4-2.8-2.6-3.3-.2-.5 0-.7.2-.9.2-.2.5-.5.7-.7.2-.2.3-.4.4-.7.1-.3 0-.6-.1-.8-.1-.2-1-2.5-1.4-3.4-.4-.9-.8-.8-1-.8h-.8c-.3 0-.8.1-1.2.6-.4.4-1.6 1.6-1.6 3.8s1.6 4.4 1.8 4.7c.2.3 3.2 4.9 7.8 6.9 1.1.5 2 .7 2.7.9 1.1.3 2.2.3 3 .2.9-.1 2.8-1.2 3.2-2.3.4-1.1.4-2 .3-2.2-.1-.2-.4-.3-.9-.5z"/></svg>
+</a>
+
+<script>
+// Scroll fade-in
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0) scale(1)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.svc-card,.why-card,.cinfo-card,.a-stat').forEach(el => {
+  el.style.opacity='0';
+  el.style.transform='translateY(20px) scale(.98)';
+  el.style.transition='opacity .5s ease, transform .5s ease';
+  obs.observe(el);
+});
+
+function submitForm(btn) {
+  btn.textContent = '✅ Sent! We\'ll call you soon.';
+  btn.style.background = '#00C9A7';
+  btn.style.boxShadow = '4px 4px 0 #FFD600';
+  setTimeout(() => {
+    btn.textContent = 'Send Enquiry →';
+    btn.style.background = 'var(--primary)';
+    btn.style.boxShadow = '4px 4px 0 var(--secondary)';
+  }, 3500);
+}
+</script>
+</body>
+</html>
